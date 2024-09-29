@@ -8,9 +8,11 @@
     <form method="post" action="/Account/SignUp">
         <div class="form-group">
             <label for="email">Ready to watch? Enter your email to create or restart your membership.</label>
+            <div class="email-btn">
             <input type="email" class="form-control" id="email" name="email" required placeholder="Email address">
+            <button type="submit" class="btn btn-danger">Get Started</button>
+            </div>
         </div>
-        <button type="submit" class="btn btn-danger">Get Started</button>
     </form>
     <div class="footer">
         <p>Already have an account? <a href="/Account/Login" class="sign-in-link">Sign in</a></p>
