@@ -2,7 +2,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <h1>Unlimited movies, TV shows, and more.</h1>
+    <p>Starts at R49. Cancel anytime.</p>
+    <form method="post" action="/Account/SignUp">
+        <div class="form-group">
+            <label for="email">Ready to watch? Enter your email to create or restart your membership.</label>
+            <input type="email" class="form-control" id="email" name="email" required placeholder="Email address">
+        </div>
+        <button type="submit" class="btn btn-danger">Get Started</button>
+    </form>
+    <div class="footer">
+        <p>Already have an account? <a href="/Account/Login" class="sign-in-link">Sign in</a></p>
+    </div>
 </div>
+
