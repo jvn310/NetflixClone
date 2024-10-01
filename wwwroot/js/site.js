@@ -4,6 +4,33 @@
 // Write your JavaScript code.
 
 const apiKey = '333c507e13a6708b1caa02ed821254c7';
+
+// Function to handle region change
+function handleRegionChange() {
+    const region = document.getElementById('region').value;
+    const contentTypeSelect = document.getElementById('contentType');
+
+    contentTypeSelect.innerHTML = ''; // Clear previous options
+
+    if (region === 'ZA') {
+        // South Africa: Show Movies and TV Shows without language options
+        contentTypeSelect.innerHTML = `
+            <option value="movie-za">Movies</option>
+            <option value="tv-za">TV Shows</option>
+        `;
+    } else if (region === 'global') {
+        // Global: Show Movies and TV Shows with language options
+        contentTypeSelect.innerHTML = `
+            <option value="movie-english">Movies – English</option>
+            <option value="movie-other">Movies – Other Languages</option>
+            <option value="tv-english">TV Shows – English</option>
+            <option value="tv-other">TV Shows – Other Languages</option>
+        `;
+    }
+
+    getTrendingContent(); // Fetch content based on the new selection
+}
+
 async function getTrendingContent() {
     const region = document.getElementById('region').value;
     const contentType = document.getElementById('contentType').value;
@@ -12,10 +39,14 @@ async function getTrendingContent() {
     if (contentType === 'movie-english' || contentType === 'tv-english') {
         language = 'en';
     } else if (contentType === 'movie-other' || contentType === 'tv-other') {
-        language = null;
+        language = null; // Show all languages
     }
 
-    const discoverURL = `https://api.themoviedb.org/3/discover/${contentType.includes('movie') ? 'movie' : 'tv'}?api_key=${apiKey}${language ? `&with_original_language=${language}` : ''}&region=${region !== 'global' ? region : ''}`;
+    const isZA = region === 'ZA'; // Check if South Africa is selected
+    const type = contentType.includes('movie') ? 'movie' : 'tv';
+
+    const discoverURL = `https://api.themoviedb.org/3/discover/${type}?api_key=${apiKey}${language ? `&with_original_language=${language}` : ''
+        }&region=${isZA ? 'ZA' : ''}`;
 
     try {
         const response = await fetch(discoverURL);
@@ -29,7 +60,6 @@ async function getTrendingContent() {
     }
 }
 
-
 // Display top 10 trending movies/TV shows
 function displayTrendingMovies(movies) {
     const moviesGrid = document.getElementById('moviesGrid');
@@ -42,7 +72,7 @@ function displayTrendingMovies(movies) {
         movieCard.className = 'movie-card';
         movieCard.innerHTML = `
             <div class="movie-number">${index + 1}</div>
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title || movie.name}">
         `;
         fragment.appendChild(movieCard);  // Append the movie card to the fragment
     });
@@ -50,5 +80,6 @@ function displayTrendingMovies(movies) {
     moviesGrid.appendChild(fragment);  // Append the fragment to the #moviesGrid
 }
 
-getTrendingContent();
+// Initial call to populate content when the page loads
+handleRegionChange();
 

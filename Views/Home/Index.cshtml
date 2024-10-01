@@ -15,27 +15,25 @@
         </div>
     </form>
 
-    <div class="movies-section">
+   <div class="movies-section">
         <h2>Trending Now</h2>
         <div class="filters">
-            <select id="region" onchange="getTrendingContent()">
+            <select id="region" onchange="handleRegionChange()">
                 <option value="ZA">South Africa</option>
                 <option value="global">Global</option>
             </select>
 
             <select id="contentType" onchange="getTrendingContent()">
-                <option value="movie-english">Movies – English</option>
-                <option value="movie-other">Movies – Other Languages</option>
-                <option value="tv-english">TV Shows – English</option>
-                <option value="tv-other">TV Shows – Other Languages</option>
+                <!-- content type options will be updated dynamically -->
             </select>
         </div>
 
         <div class="movies-section">
         <div id="moviesGrid" class="movies-grid">
             <!--movie cards go here-->
+            </div>
         </div>
     </div>
-    </div>
+</div>
 
 
