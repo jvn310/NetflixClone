@@ -205,3 +205,44 @@ select {
     height: 3em;
     border-radius: 4px;
 }
+
+.reasons-container {
+    padding: 50px;
+    color: white;
+}
+
+.reasons-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.reason-card {
+    background-color: #20111f;
+    border-radius: 10px;
+    padding: 20px;
+    width: 350px;
+    position: relative;
+    min-height: 250px;
+}
+
+    .reason-card h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .reason-card p {
+        font-size: 0.95em;
+        margin-bottom: 15px;
+    }
+
+    .reason-card img {
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px; 
+    }
+
+   
