@@ -235,6 +235,7 @@ select {
     .reason-card p {
         font-size: 0.95em;
         margin-bottom: 15px;
+        opacity: 60%;
     }
 
     .reason-card img {
