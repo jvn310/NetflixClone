@@ -4,6 +4,9 @@
 // Write your JavaScript code.
 
 const apiKey = '333c507e13a6708b1caa02ed821254c7';
+let movies = [];
+let currentSlideIndex = 0;
+const slidesToShow = 6; // Number of movie cards visible per slide
 
 // Function to handle region change
 function handleRegionChange() {
@@ -54,30 +57,52 @@ async function getTrendingContent() {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        displayTrendingMovies(data.results.slice(0, 10));  // Limit to top 10
+        movies = data.results.slice(0, 12);  // Limit to top 12 movies/TV shows
+        displayTrendingMovies(currentSlideIndex);  // Limit to top 12
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
 // Display top 10 trending movies/TV shows
-function displayTrendingMovies(movies) {
+function displayTrendingMovies(slideIndex) {
     const moviesGrid = document.getElementById('moviesGrid');
     moviesGrid.innerHTML = '';  // Clear the grid
 
     const fragment = document.createDocumentFragment();  // Create fragment for better performance
 
-    movies.forEach((movie, index) => {
+    // Calculate which movies to display on the current slide
+    const start = slideIndex * 6;  // Show 6 movies per slide
+    const end = start + 6;
+    const currentMovies = movies.slice(start, end);
+
+    currentMovies.forEach((movie, index) => {
         const movieCard = document.createElement('div');
         movieCard.className = 'movie-card';
         movieCard.innerHTML = `
-            <div class="movie-number">${index + 1}</div>
+            <div class="movie-number">${start + index + 1}</div>
             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title || movie.name}">
         `;
         fragment.appendChild(movieCard);  // Append the movie card to the fragment
     });
 
     moviesGrid.appendChild(fragment);  // Append the fragment to the #moviesGrid
+}
+
+// Function to go to the next slide
+function nextSlide() {
+    if ((currentSlideIndex + 1) * 5 < movies.length) {
+        currentSlideIndex++;
+        displayTrendingMovies(currentSlideIndex);
+    }
+}
+
+// Function to go to the previous slide
+function prevSlide() {
+    if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        displayTrendingMovies(currentSlideIndex);
+    }
 }
 
 // Initial call to populate content when the page loads

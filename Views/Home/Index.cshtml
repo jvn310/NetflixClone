@@ -3,6 +3,7 @@
 }
 
 <div class="container">
+    <div class="centered-text">
     <h1>Unlimited movies, TV shows, and more.</h1>
     <p>Starts at R49. Cancel anytime.</p>
     <form method="post" action="/Account/SignUp">
@@ -14,6 +15,9 @@
             </div>
         </div>
     </form>
+</div>
+</div>
+
 
    <div class="movies-section">
         <h2>Trending Now</h2>
@@ -28,11 +32,12 @@
             </select>
         </div>
 
-        <div class="movies-section">
-        <div id="moviesGrid" class="movies-grid">
-            <!--movie cards go here-->
-            </div>
+      <div class="slider-container">
+        <button class="slide-arrow prev-arrow" onclick="prevSlide()">&#10094;</button>
+        <div id="moviesGrid" class="movies-grid slider-wrapper">
+            <!-- Movie cards will be dynamically inserted here -->
         </div>
+        <button class="slide-arrow next-arrow" onclick="nextSlide()">&#10095;</button>
     </div>
 </div>
 
