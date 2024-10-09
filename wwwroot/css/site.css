@@ -38,13 +38,6 @@ body::before {
     z-index: -1;
 }
 
-/*.container {
-    max-width: 800px;
-    padding: 40px;
-    text-align: center;
-    margin: 0 auto;
-}*/
-
 .centered-text {
     max-width: 800px;
     padding: 40px;
@@ -118,9 +111,9 @@ input[type="email"] {
     padding: 12px; 
 }
 
-.btn-danger:hover {
-    background-color: #f40612;
-}
+    .btn-danger:hover {
+        background-color: #c11119;
+    }
 
 .sign-in-link {
     color: #e50914; 
