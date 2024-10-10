@@ -52,10 +52,11 @@ body::before {
     justify-content: flex-start;
 }
 
-h1 {
+ h1 {
     font-size: 3.5em; 
     font-weight: bolder;
     margin-bottom: 20px;
+    padding-top: 40px;
 }
 
 p {
@@ -111,13 +112,25 @@ input[type="email"] {
     padding: 12px; 
 }
 
-    .btn-danger:hover {
+#danger-btn {
+    background-color: #e50914;
+    text-align: center;
+    border: none;
+    text-decoration: none;
+    color: white;
+    width: 75px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+    .btn-danger:hover, #danger-btn:hover {
         background-color: #c11119;
     }
 
 .sign-in-link {
     color: #e50914; 
 }
+
 
 .slider-container {
     position: relative;
