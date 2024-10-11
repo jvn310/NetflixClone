@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NetflixClone.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="@ViewData["BodyClass"]">
     <header>
         <nav class="navbar navbar-expand-lg">
             <div class="container-xxl">
@@ -17,8 +17,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                    <img src="~/images/Netflix-Logo-removebg-preview(1).png" alt="Netflix Logo" width="250" />
-                   <a href="#" id="danger-btn" class="ms-auto">Sign In</a>
-            </div>
+
+                    @if (ViewData["ShowSignIn"] != null && (bool)ViewData["ShowSignIn"])
+                    {
+                        <a href="#" id="danger-btn" class="ms-auto">Sign In</a>
+
+                    }
+                </div>
             </div>
         </nav>
 
