@@ -56,7 +56,7 @@ body::before {
 
 .login-container {
     background-color: rgba(0, 0, 0, 0.7);
-    width: 400px;
+    width: 300px;
     text-align: center;
     margin: 0 auto;
     padding: 40px;
@@ -145,7 +145,17 @@ input[type="email"], input[type="text"], input[type="password"] {
     border-radius: 4px;
 }
 
-    .btn-danger:hover, #danger-btn:hover {
+.sign-in-btn {
+    background-color: #dd0b15;
+    margin-top: 20px;
+    border: none;
+    color: white;
+    width: 90px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+    .btn-danger:hover, #danger-btn:hover, .sign-in-btn {
         background-color: #c11119;
     }
 
@@ -155,6 +165,10 @@ input[type="email"], input[type="text"], input[type="password"] {
 
 .movies-section h2 {
     padding-top: 95px;
+}
+
+.movies-section {
+    margin: 0 155px;
 }
 
 .slider-container {
@@ -247,6 +261,7 @@ select {
 .reasons-container {
     padding: 50px;
     color: white;
+    margin: 0 120px;
 }
 
 .reasons-grid {
@@ -326,6 +341,11 @@ select {
     transform: rotate(45deg);
 }
 
+.tel-numbers {
+    opacity: 60%;
+    margin: 0;
+}
+
 a {
     color: white;
 }
@@ -355,7 +375,8 @@ footer {
 }
 
     .footer-column a {
-        color: white;
+        color: white !important;
+        opacity: 60%;
         text-decoration: underline;
         display: block;
         margin-bottom: 10px;
@@ -387,15 +408,33 @@ footer {
 
 .coloured-background {
     width: 100%;
-    background: radial-gradient(32% 17% at 51% 0%, #044D7B 0%, #000000 100%) no-repeat 22% 34% / 100% 100%;
+    background-color: black;
 }
 
 .curved-red-line {
-    width: 100%; 
-    height: 100px; 
-    border: 5px solid transparent;
+    background: radial-gradient(100% 37% at 40% 0%, #044D7B 0%, #000000 100%) no-repeat 22% 34% / 100% 100%;
+    width: 100%;
+    position: relative;
+    padding-bottom: 100px;
     border-top: 5px solid red;
     border-radius: 100% 100% 0 0;
-    background-color: transparent; 
+    background-color: transparent;
     margin-top: 120px;
+}
+
+.option {
+    margin-top: 30px;
+}
+
+.sign-in-code-btn {
+    color: white;
+    border: none;
+    border-radius: 4px;
+    height: 40px;
+    text-align: center;
+    padding: 10px;
+}
+
+.options, .forgot-password {
+    margin-top: 10px;
 }

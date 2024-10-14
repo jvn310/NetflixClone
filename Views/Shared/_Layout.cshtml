@@ -20,7 +20,7 @@
 
                     @if (ViewData["ShowSignIn"] != null && (bool)ViewData["ShowSignIn"])
                     {
-                        <a href="#" id="danger-btn" class="ms-auto">Sign In</a>
+                        <a asp-controller="Home" asp-action="SignUp" id="danger-btn" class="ms-auto">Sign In</a>
 
                     }
                 </div>
@@ -28,8 +28,8 @@
         </nav>
 
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div>
+        <main role="main">
             @RenderBody()
         </main>
     </div>
