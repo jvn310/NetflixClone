@@ -64,7 +64,7 @@ async function getTrendingContent() {
     }
 }
 
-// Display top 10 trending movies/TV shows
+// Display top 12 trending movies/TV shows
 function displayTrendingMovies(slideIndex) {
     const moviesGrid = document.getElementById('moviesGrid');
     moviesGrid.innerHTML = '';  // Clear the grid
@@ -91,7 +91,7 @@ function displayTrendingMovies(slideIndex) {
 
 // Function to go to the next slide
 function nextSlide() {
-    if ((currentSlideIndex + 1) * 5 < movies.length) {
+    if ((currentSlideIndex + 1) * 6 < movies.length) {
         currentSlideIndex++;
         displayTrendingMovies(currentSlideIndex);
     }
