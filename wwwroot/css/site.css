@@ -246,7 +246,85 @@ input[type="email"], input[type="text"], input[type="password"] {
     font-weight: 900;
     color: black; 
     -webkit-text-stroke: 2px white; /* Outlines text */
-    z-index: 2; /* Ensure it appears above other elements */
+    z-index: 1; /* Ensure it appears above other elements */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #1c1c1c;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 60%;
+    max-width: 900px;
+    display: flex;
+    color: white;
+}
+
+.modal-poster {
+    width: 200px;
+    border-radius: 8px;
+    margin-right: 20px;
+    background-size: cover;
+}
+
+.modal-text {
+    flex-grow: 1;
+}
+
+.movie-title {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.movie-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+    .movie-meta span {
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+.movie-description {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.get-started-btn {
+    background-color: #e50914;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .get-started-btn:hover {
+        background-color: #f6121d;
+    }
+
+.genre {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 select {

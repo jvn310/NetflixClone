@@ -7,6 +7,8 @@ const apiKey = '333c507e13a6708b1caa02ed821254c7';
 let movies = [];
 let currentSlideIndex = 0;
 const slidesToShow = 6; // Number of movie cards visible per slide
+let genresMap = {};
+
 
 // Function to handle region change
 function handleRegionChange() {
@@ -83,6 +85,7 @@ function displayTrendingMovies(slideIndex) {
             <div class="movie-number">${start + index + 1}</div>
             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title || movie.name}">
         `;
+        movieCard.addEventListener('click', () => showMovieDetails(movie)); // Click event for movie card
         fragment.appendChild(movieCard);  // Append the movie card to the fragment
     });
 
@@ -105,6 +108,72 @@ function prevSlide() {
     }
 }
 
+// Function to display more movie details when a card is clicked
+function showMovieDetails(movie) {
+    const modal = document.getElementById('movieModal');
+    const movieTitle = document.getElementById('movieTitle');
+    const moviePoster = document.getElementById('moviePoster');
+    const movieDescription = document.getElementById('movieDescription');
+    const movieYear = document.getElementById('movieYear');
+    const movieGenres = document.getElementById('movieGenres');
+
+    // Set the movie details in the modal
+    movieTitle.textContent = movie.title || movie.name;
+    moviePoster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    movieDescription.textContent = movie.overview || 'No description available.';
+    movieYear.textContent = movie.release_date ? new Date(movie.release_date).getFullYear() : 'Unknown';
+
+    // Populate genres
+    movieGenres.innerHTML = '';  // Clear previous genres
+    movie.genre_ids.forEach(genreId => {
+        const genreElement = document.createElement('span');
+        genreElement.classList.add('genre');
+        genreElement.textContent = getGenreName(genreId);  // Helper function to convert genre id to name
+        movieGenres.appendChild(genreElement);
+    });
+
+    // Show the modal
+    modal.style.display = 'block';
+}
+
+function fetchGenres() {
+    const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
+
+    fetch(genreUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Map of genre IDs to genre names
+            data.genres.forEach(genre => {
+                genresMap[genre.id] = genre.name;
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching genres:', error);
+        });
+}
+
+fetchGenres();
+
+// Helper function to map genre ID to genre name
+function getGenreName(genreId) {
+    return genresMap[genreId] || 'Unknown';
+}
+
+// Close modal when the close button is clicked
+const modal = document.getElementById('movieModal');
+const closeButton = document.querySelector('.modal .close');
+
+closeButton.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Close modal when clicking outside of the modal content
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
 //Faq questions interactivity
 document.querySelectorAll('.faq-question').forEach(question => {
     question.addEventListener('click', () => {
@@ -121,7 +190,6 @@ document.querySelectorAll('.faq-question').forEach(question => {
         });
     });
 });
-
 
 // Initial call to populate content when the page loads
 handleRegionChange();
