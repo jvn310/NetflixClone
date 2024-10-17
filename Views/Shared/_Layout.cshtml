@@ -34,8 +34,11 @@
         </main>
     </div>
 
-    <footer>
-        <div class="footer-container">
+    @if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &&
+    ViewContext.RouteData.Values["action"].ToString() == "Index")
+    {
+        <footer>
+            <div class="footer-container">
             <div class="footer-column">
                 <a href="#">FAQ</a>
                 <a href="#">Investor Relations</a>
@@ -76,6 +79,43 @@
             Netflix South Africa
         </div>
     </footer>
+    }
+    else if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &&
+    ViewContext.RouteData.Values["action"].ToString() == "SignUp")
+    {
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <a href="#">FAQ</a>
+                <a href="#">Cookie Preferences</a>
+            </div>
+
+            <div class="footer-column">
+                <a href="#">Help Center</a>
+                <a href="#">Corporate Information</a>
+            </div>
+
+            <div class="footer-column">
+                <a href="#">Terms Of Use</a>
+            </div>
+
+            <div class="footer-column">
+                <a href="#">Privacy</a>
+            </div>
+        </div>
+
+        <div class="language-selector">
+            <select id="language">
+                <option value="en">English</option>
+            </select>
+        </div>
+
+        <div class="footer-bottom">
+            Netflix South Africa
+        </div>
+    </footer>
+    }
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

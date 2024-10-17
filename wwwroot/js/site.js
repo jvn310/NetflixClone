@@ -81,10 +81,21 @@ function displayTrendingMovies(slideIndex) {
     currentMovies.forEach((movie, index) => {
         const movieCard = document.createElement('div');
         movieCard.className = 'movie-card';
+
+        // Check if Netflix is listed as a production company
+        const isNetflixOriginal = movie.production_companies && movie.production_companies.some(company => company.name === 'Netflix');
+
+        // Add Netflix logo if it's a Netflix original
+        const netflixLogo = isNetflixOriginal ? '<img src="/images/netflix_.png" alt="Netflix Original" class="netflix-logo">' : '';
+
         movieCard.innerHTML = `
-            <div class="movie-number">${start + index + 1}</div>
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title || movie.name}">
-        `;
+    <div class="movie-number">${start + index + 1}</div>
+    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title || movie.name}">
+    <div class="logo-container">
+        ${netflixLogo}
+    </div>
+`;
+
         movieCard.addEventListener('click', () => showMovieDetails(movie)); // Click event for movie card
         fragment.appendChild(movieCard);  // Append the movie card to the fragment
     });
