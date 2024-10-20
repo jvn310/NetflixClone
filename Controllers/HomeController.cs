@@ -15,6 +15,7 @@ namespace NetflixClone.Controllers
 
         public IActionResult Index()
         {
+            ViewData["Page"] = "Home";
             ViewData["ShowSignIn"] = true;
             return View();
         }
@@ -26,6 +27,7 @@ namespace NetflixClone.Controllers
 
         public IActionResult SignUp()
         {
+            ViewData["Page"] = "Home";
             ViewData["ShowSignIn"] = false;
             ViewData["BodyClass"] = "lighter-background";
             return View();
@@ -33,6 +35,7 @@ namespace NetflixClone.Controllers
 
         public IActionResult HomeNetflix()
         {
+            ViewData["Page"] = "Movie";
             return View();
         }
 

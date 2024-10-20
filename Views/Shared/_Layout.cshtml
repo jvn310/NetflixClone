@@ -10,22 +10,55 @@
 </head>
 <body class="@ViewData["BodyClass"]">
     <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-xxl">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                   <img src="~/images/Netflix-Logo-removebg-preview(1).png" alt="Netflix Logo" width="250" />
+        @if (ViewData["Page"] != null && ViewData["Page"].ToString() == "Home")
+        {
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-xxl">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <img src="~/images/Netflix-Logo-removebg-preview(1).png" alt="Netflix Logo" width="250" />
 
-                    @if (ViewData["ShowSignIn"] != null && (bool)ViewData["ShowSignIn"])
-                    {
-                        <a asp-controller="Home" asp-action="SignUp" id="danger-btn" class="ms-auto">Sign In</a>
+                        @if (ViewData["ShowSignIn"] != null && (bool)ViewData["ShowSignIn"])
+                        {
+                            <a asp-controller="Home" asp-action="SignUp" id="danger-btn" class="ms-auto">Sign In</a>
 
-                    }
+                        }
+                    </div>
+                </div>
+            </nav>
+        }
+        @if (ViewData["Page"] != null && ViewData["Page"].ToString() == "Movie")
+        {
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-xxl">
+                <img src="~/images/Netflix-Logo-removebg-preview(1).png" alt="Netflix Logo" width="250" />
+                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">TV Shows</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">New & Popular</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Browse by Language</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
+        }
 
     </header>
     <div>

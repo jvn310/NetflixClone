@@ -1,48 +1,71 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-a {
-  color: #0077cc;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+
+footer {
+    background-color: #000;
+    padding: 40px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 150px;
+    margin: 10px 0;
+}
+
+    .footer-column a {
+        color: white !important;
+        opacity: 60%;
+        text-decoration: underline;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+.language-selector {
+    margin: 20px 155px;
+}
+
+    .language-selector select {
+        background-color: rgba(18,20,21,0.8);
+        border-radius: 4px;
+        color: #fff;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .language-selector select option {
+            background-color: #000;
+        }
+
+.footer-bottom {
+    margin: 20px 155px;
+    font-size: 14px;
+    color: #b3b3b3;
+}
+
+.nav-item a {
+    color: white;
+    opacity: 60%;
+}
+
+.nav-item a:hover {
+    opacity: 100%;
 }
