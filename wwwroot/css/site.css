@@ -47,6 +47,11 @@ body::before {
         background-color: rgba(0, 0, 0, 0.3);
     }
 
+body.black-background {
+    background-image: none;
+    background-color: black;
+}
+
 .centered-text {
     max-width: 60%;
     padding: 40px;
