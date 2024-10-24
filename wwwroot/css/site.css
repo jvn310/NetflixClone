@@ -479,3 +479,128 @@ a:hover {
 .options, .forgot-password {
     margin-top: 10px;
 }
+
+.movie-slider-section {
+    margin: 20px 0;
+    padding: 0 30px;
+}
+
+.movie-slider {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+    .movie-slider::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome, Safari */
+    }
+
+.movie-card-2 {
+    flex: none;
+    width: 350px;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+    .movie-card-2 img {
+        border-radius: 5px;
+        max-width: 100%;
+        height: auto;
+        transition: transform 0.2s;
+    }
+
+    .movie-card-2:hover {
+        transform: scale(1.05);
+    }
+
+    .movie-card-2 p {
+        margin-top: 10px;
+        color: #e5e5e5;
+        font-weight: 500;
+    }
+
+
+.featured-movie {
+    position: relative;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-size: cover;
+    background-position: center;
+}
+
+.featured-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 2;
+}
+
+    .featured-content h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .featured-content p {
+        font-size: 1.2rem;
+        max-width: 500px;
+        text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
+    }
+
+.buttons a {
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.btn-play {
+    background-color: #e50914;
+    font-weight: bold;
+}
+
+.btn-info {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.featured-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(60%);
+    z-index: 1;
+}
+
+.modal-content {
+    background-color: #141414;
+    border-radius: 10px;
+    color: #ffffff;
+}
+
+.modal-title {
+    color: #ffffff;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal {
+    z-index: 1050;
+}
+
+.modal-backdrop {
+    z-index: 1040;
+}

@@ -66,6 +66,7 @@ footer {
     opacity: 60%;
 }
 
-.nav-item a:hover {
+.nav-item a:hover, .nav-item a .active {
     opacity: 100%;
 }
+

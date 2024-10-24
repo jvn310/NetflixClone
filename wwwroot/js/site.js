@@ -202,6 +202,22 @@ document.querySelectorAll('.faq-question').forEach(question => {
     });
 });
 
+function showTrailer(trailerUrl, title, description, posterUrl) {
+    // Set movie details
+    document.getElementById('movieTitle').textContent = title;
+    document.getElementById('movieDescription').textContent = description;
+    document.getElementById('moviePoster').src = posterUrl;
+
+    // Set the trailer URL and display the iframe
+    const trailerIframe = document.getElementById('trailerIframe');
+    trailerIframe.src = trailerUrl;
+
+    // Show the modal
+    const modal = new bootstrap.Modal(document.getElementById('trailerModal'));
+    modal.show();
+}
+
+
 // Initial call to populate content when the page loads
 handleRegionChange();
 

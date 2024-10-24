@@ -1,8 +1,194 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using NetflixClone.Models;
+@model NetflixClone.Models.MovieViewModel
 @{
-    ViewData["Title"] = "Welcome Page";
+    ViewData["Title"] = "Browser Page";
 }
 
-<h1>Hi</h1>
+@if (ViewBag.FeaturedMovie != null)
+{
+    <div class="featured-movie">
+        <div class="featured-content">
+            <h1>@ViewBag.FeaturedMovie.Title</h1>
+            <p>@ViewBag.FeaturedMovie.Description</p>
+            <div class="buttons">
+                <a href="@ViewBag.FeaturedMovie.TrailerUrl" class="btn btn-play">Play</a>
+                <a href="#" class="btn btn-info">More Info</a>
+            </div>
+        </div>
+        <div class="featured-background" style="background-image: url('@ViewBag.FeaturedMovie.PosterUrl');"></div>
+    </div>
+}
+else
+{
+    <p>No featured movie is available at the moment.</p>
+}
+
+<div class="movie-slider-section">
+    <h3 class="text-white">We Think You'll Love These</h3>
+    <div class="movie-slider d-flex overflow-auto">
+        @foreach (var movie in Model.MovieList ?? Enumerable.Empty<Movie>())
+        {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px;">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                <p class="text-white">@movie.Title</p>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="categories">
+    <!-- Continue Watching -->
+    <div class="movie-slider-section mt-4">
+        <h3 class="text-white">Continue Watching</h3>
+        <div class="movie-slider d-flex overflow-auto" style="scroll-snap-type: x mandatory;">
+            @foreach (var movie in Model.ContinueWatching ?? Enumerable.Empty<Movie>())
+            {
+                <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px; scroll-snap-align: start;">
+                    <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                    <p class="text-white mt-2">@movie.Title</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+    <!-- Top 10 Movies -->
+    <div class="movie-slider-section mt-4">
+        <h3 class="text-white">Top 10 Movies in South Africa Today</h3>
+        <div class="movie-slider d-flex overflow-auto" style="scroll-snap-type: x mandatory;">
+            @foreach (var movie in Model.Top10Movies ?? Enumerable.Empty<Movie>())
+            {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px; scroll-snap-align: start;">
+                    <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                    <p class="text-white mt-2">@movie.Title</p>
+                </div>
+            }
+        </div>
+    </div>
+
+<!-- Action Movies -->
+<div class="movie-slider-section mt-4">
+    <h3 class="text-white">Action Movies</h3>
+    <div class="movie-slider d-flex overflow-auto">
+        @foreach (var movie in Model.ActionMovies ?? Enumerable.Empty<Movie>())
+        {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px;">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                <p class="text-white">@movie.Title</p>
+            </div>
+        }
+    </div>
+</div>
+
+    <!-- Comedy Movies -->
+<div class="movie-slider-section mt-4">
+    <h3 class="text-white">Comedy Movies</h3>
+    <div class="movie-slider d-flex overflow-auto">
+        @foreach (var movie in Model.ComedyMovies ?? Enumerable.Empty<Movie>())
+        {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px;">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                <p class="text-white">@movie.Title</p>
+            </div>
+        }
+    </div>
+</div>
+
+    <!-- Drama Movies -->
+<div class="movie-slider-section mt-4">
+    <h3 class="text-white">Drama Movies</h3>
+    <div class="movie-slider d-flex overflow-auto">
+        @foreach (var movie in Model.DramaMovies ?? Enumerable.Empty<Movie>())
+        {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px;">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                <p class="text-white">@movie.Title</p>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Animation Movies -->
+<div class="movie-slider-section mt-4">
+    <h3 class="text-white">Animation Movies</h3>
+    <div class="movie-slider d-flex overflow-auto">
+        @foreach (var movie in Model.AnimationMovies ?? Enumerable.Empty<Movie>())
+        {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px;">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                <p class="text-white">@movie.Title</p>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Horror Movies -->
+<div class="movie-slider-section mt-4">
+    <h3 class="text-white">Horror Movies</h3>
+    <div class="movie-slider d-flex overflow-auto">
+        @foreach (var movie in Model.HorrorMovies ?? Enumerable.Empty<Movie>())
+        {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px;">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                <p class="text-white">@movie.Title</p>
+            </div>
+        }
+    </div>
+</div>
+
+    <!-- Trending Now -->
+    <div class="movie-slider-section mt-4">
+        <h3 class="text-white">Trending Now</h3>
+        <div class="movie-slider d-flex overflow-auto" style="scroll-snap-type: x mandatory;">
+            @foreach (var movie in Model.TrendingMovies ?? Enumerable.Empty<Movie>())
+            {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px; scroll-snap-align: start;">
+                    <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                    <p class="text-white mt-2">@movie.Title</p>
+                </div>
+            }
+        </div>
+    </div>
+
+<!-- New Releases -->
+<div class="movie-slider-section mt-4">
+    <h3 class="text-white">New Releases</h3>
+    <div class="movie-slider d-flex overflow-auto" style="scroll-snap-type: x mandatory;">
+        @foreach (var movie in Model.NewReleases ?? Enumerable.Empty<Movie>())
+        {
+            <div class="movie-card-2" onclick="showTrailer('@movie.TrailerUrl', '@movie.Title', '@movie.Description', '@movie.PosterUrl')" style="min-width: 200px; margin-right: 10px; scroll-snap-align: start;">
+                <img src="@movie.PosterUrl" alt="@movie.Title" class="img-fluid">
+                <p class="text-white mt-2">@movie.Title</p>
+            </div>
+        }
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="trailerModal" tabindex="-1" aria-labelledby="trailerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="trailerModalLabel">Movie Trailer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Movie Details -->
+                <div id="movieDetails">
+                    <img id="moviePoster" src="" alt="Movie Poster" class="img-fluid mb-3">
+                    <h5 id="movieTitle"></h5>
+                    <p id="movieDescription"></p>
+                </div>
+                <!-- Trailer Button -->
+                <button id="playTrailerBtn" class="btn btn-danger">Play Trailer</button>
+                <!-- Iframe for Trailer -->
+                <iframe width="100%" height="400" src="" frameborder="0" allowfullscreen id="trailerIframe" style="display:none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+

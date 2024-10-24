@@ -1,7 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using NetflixClone.Data;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NetflixClone.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Logging
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
+// TmdbService
+builder.Services.AddScoped<TmdbService>();
+
+// Register ApplicationDbContext for MySQL
+builder.Services.AddDbContext<NetflixCloneDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    new MySqlServerVersion(new Version(8, 0, 40))));
 
 var app = builder.Build();
 

@@ -10,7 +10,7 @@
 </head>
 <body class="@ViewData["BodyClass"]">
     <header>
-        @if (ViewData["Page"] != null && ViewData["Page"].ToString() == "Home")
+        @if (ViewData["Page"]?.ToString() == "Home")
         {
             <nav class="navbar navbar-expand-lg">
                 <div class="container-xxl">
@@ -20,7 +20,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <img src="~/images/Netflix-Logo-removebg-preview(1).png" alt="Netflix Logo" width="250" />
 
-                        @if (ViewData["ShowSignIn"] != null && (bool)ViewData["ShowSignIn"])
+                        @if (ViewData["ShowSignIn"] is bool showSignIn && showSignIn)
                         {
                             <a asp-controller="Home" asp-action="SignUp" id="danger-btn" class="ms-auto">Sign In</a>
 
@@ -29,7 +29,7 @@
                 </div>
             </nav>
         }
-        @if (ViewData["Page"] != null && ViewData["Page"].ToString() == "Movie")
+        @if (ViewData["Page"]?.ToString() == "Movie")
         {
             <nav class="navbar navbar-expand-lg">
                 <div class="container-xxl">
@@ -67,8 +67,8 @@
         </main>
     </div>
 
-    @if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &&
-    ViewContext.RouteData.Values["action"].ToString() == "Index")
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
+    ViewContext.RouteData.Values["action"]?.ToString() == "Index")
     {
         <footer>
             <div class="footer-container">
@@ -113,8 +113,8 @@
         </div>
     </footer>
     }
-    else if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &&
-    ViewContext.RouteData.Values["action"].ToString() == "SignUp")
+    else if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
+    ViewContext.RouteData.Values["action"]?.ToString() == "SignUp")
     {
     <footer>
         <div class="footer-container">
