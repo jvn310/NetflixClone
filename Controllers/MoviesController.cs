@@ -15,12 +15,20 @@ namespace NetflixClone.Controllers
         private readonly NetflixCloneDbContext _context;
         private readonly TmdbService _tmdbService;
         private readonly ILogger<MoviesController> _logger;
+        private readonly MovieService _movieService;
 
-        public MoviesController(NetflixCloneDbContext context, TmdbService tmdbService, ILogger<MoviesController> logger)
+        public async Task<IActionResult> FetchMovies()
+        {
+            await _movieService.FetchAndAddMoviesAsync();
+            return RedirectToAction("HomeNetflix");
+        }
+
+        public MoviesController(NetflixCloneDbContext context, TmdbService tmdbService, ILogger<MoviesController> logger, MovieService movieService)
         {
             _context = context;
             _tmdbService = tmdbService;
             _logger = logger;
+            _movieService = movieService;
         }
 
         // Fetch and store popular movies

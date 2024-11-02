@@ -208,15 +208,21 @@ function showTrailer(trailerUrl, title, description, posterUrl) {
     document.getElementById('movieDescription').textContent = description;
     document.getElementById('moviePoster').src = posterUrl;
 
-    // Set the trailer URL and display the iframe
+    // Set the trailer URL but don't display it immediately
     const trailerIframe = document.getElementById('trailerIframe');
     trailerIframe.src = trailerUrl;
+    trailerIframe.style.display = 'none';
 
     // Show the modal
     const modal = new bootstrap.Modal(document.getElementById('trailerModal'));
     modal.show();
-}
 
+    // Play Trailer button behavior
+    const playTrailerBtn = document.getElementById('playTrailerBtn');
+    playTrailerBtn.onclick = function () {
+        trailerIframe.style.display = 'block'; 
+    };
+}
 
 // Initial call to populate content when the page loads
 handleRegionChange();

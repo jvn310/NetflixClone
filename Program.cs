@@ -3,11 +3,15 @@ using NetflixClone.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NetflixClone.Services;
+using NetflixClone.Services.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Background service
+builder.Services.AddHostedService<MovieFetchBackgroundService>();
 
 // Logging
 builder.Logging.AddConsole();
@@ -16,10 +20,16 @@ builder.Logging.AddDebug();
 // TmdbService
 builder.Services.AddScoped<TmdbService>();
 
+// Register MovieService
+builder.Services.AddScoped<MovieService>();
+
 // Register ApplicationDbContext for MySQL
 builder.Services.AddDbContext<NetflixCloneDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(8, 0, 40))));
+
+// Register IHttpClientFactory
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
