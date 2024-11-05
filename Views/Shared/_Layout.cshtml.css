@@ -61,12 +61,23 @@ footer {
     color: #b3b3b3;
 }
 
-.nav-item a {
+.nav-link {
     color: white;
     opacity: 60%;
 }
 
-.nav-item a:hover, .nav-item a .active {
+.navbar .navbar-nav .nav-link.active {
     opacity: 100%;
 }
 
+.navbar-icons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+    .navbar-icons .nav-icon {
+        color: #e5e5e5;
+        margin-left: 20px;
+        font-size: 20px;
+    }
