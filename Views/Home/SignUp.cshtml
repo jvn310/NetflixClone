@@ -10,7 +10,9 @@
             <h2>Sign In</h2>
     <form method="post" action="HomeNetflix">
                 <input type="text" placeholder="Email or mobile ..." required class="text-field">
-                <input type="password" placeholder="Password" class="text-field" required>
+                <input type="password" placeholder="Password" class="text-field" required
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@@!%*?&])[A-Za-z\d@@$!%*?&]{8,}"
+               title="Password must be at least 8 characters long, with one uppercase letter, one lowercase letter, one number, and one special character.">
                 <button type="submit" class="sign-in-btn">Sign In</button>
             </form>
 
