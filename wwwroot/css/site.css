@@ -115,7 +115,7 @@ input[type="email"]:focus, input[type="text"]:focus, input[type="password"]:focu
         opacity: 1;
     }
 
-input[type="email"], input[type="text"], input[type="password"] {
+input[type="email"] {
     background-color: rgba(18,20,21,0.8);
     height: 3.3em;
     width: 60%;
@@ -123,6 +123,13 @@ input[type="email"], input[type="text"], input[type="password"] {
     padding: 10px;
     padding-top: 5px;
     transition: all 0.2s ease-in-out;
+}
+
+input[type="text"], input[type="password"] {
+    height: 3.3em;
+    background-color: rgba(18,20,21,0.8);
+    padding: 10px;
+    padding-top: 5px;
 }
 
 .text-field {
@@ -150,16 +157,16 @@ input[type="email"], input[type="text"], input[type="password"] {
 }
 
 .sign-in-btn {
-    background-color: #dd0b15;
+    background-color: #e50914;
     margin-top: 20px;
     border: none;
     color: white;
-    width: 90px;
+    width: 160px;
     height: 40px;
     border-radius: 4px;
 }
 
-    .btn-danger:hover, #danger-btn:hover, .sign-in-btn {
+    .btn-danger:hover, #danger-btn:hover, .sign-in-btn:hover {
         background-color: #c11119;
     }
 
@@ -467,7 +474,7 @@ a:hover {
 }
 
 .sign-in-code-btn {
-    background-color: rgba(4,4,4,0.8);
+    background-color: rgba(64,65,67,0.6);
     color: white;
     border: none;
     border-radius: 4px;
@@ -476,8 +483,43 @@ a:hover {
     padding: 10px;
 }
 
+    .sign-in-code-btn:hover {
+        background-color: rgba(64,65,67,0.4);
+    }
+
 .options, .forgot-password {
     margin-top: 10px;
+}
+
+.forgot-password {
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    opacity: 60%;
+    text-decoration: underline;
+}
+
+.sign-up-link {
+    text-decoration: none;
+}
+
+.sign-up-link:hover {
+    text-decoration: underline;
+}
+
+.learn-more-link {
+    color: #0071eb;
+    text-decoration: none;
+}
+
+.learn-more-link:hover {
+    color: #0071eb;
+    text-decoration: underline;
+}
+
+.new-user {
+    opacity: 60%;
 }
 
 .movie-slider-section {
