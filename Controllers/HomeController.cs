@@ -128,6 +128,24 @@ namespace NetflixClone.Controllers
                 .ToList();
         }
 
+        public IActionResult SignUp1()
+        {
+            ViewData["BodyClass"] = "white-background";
+            return View();
+        }
+
+        public ActionResult CheckInbox()
+        {
+            ViewData["BodyClass"] = "white-background";
+            return View();
+        }
+
+        public ActionResult CreatePassword()
+        {
+            ViewData["BodyClass"] = "white-background";
+            return View(); 
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

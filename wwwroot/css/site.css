@@ -52,6 +52,11 @@ body.black-background {
     background-color: black;
 }
 
+body.white-background {
+    background-image: none;
+    background-color: #fff !important;
+}
+
 .centered-text {
     max-width: 60%;
     padding: 40px;
@@ -646,3 +651,160 @@ a:hover {
 .modal-backdrop {
     z-index: 1040;
 }
+
+.setup-page {
+    text-align: center;
+    padding-top: 50px;
+}
+
+    .setup-page .step-title {
+        color: #333;
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    .setup-page .main-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .setup-page .info-text {
+        color: #666;
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    .setup-page .send-link-btn {
+        background-color: #e50914;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+        .setup-page .send-link-btn:hover {
+            background-color: #b20710;
+        }
+
+    .setup-page .icons {
+        font-size: 2rem;
+        color: #e50914;
+        margin-bottom: 10px;
+    }
+
+    .setup-page .checkbox-container {
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+
+.inbox-page .icon-container {
+    margin: 20px 0;
+}
+
+.inbox-page .step-title {
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.inbox-page .main-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.inbox-page .info-text {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.inbox-page .btn-red {
+    background-color: #e50914;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+    .inbox-page .btn-red:hover {
+        background-color: #b20710;
+    }
+
+.inbox-page .btn-gray {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 200px;
+}
+
+    .inbox-page .btn-gray:hover {
+        background-color: #d0d0d0;
+    }
+
+.step-title {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.main-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.sub-text {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    font-size: 1rem;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn-red {
+    background-color: #e50914;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+    .btn-red:hover {
+        background-color: #b20710;
+    }

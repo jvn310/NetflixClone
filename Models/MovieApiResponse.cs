@@ -3,6 +3,9 @@
     public class MovieApiResponse
     {
         public List<MovieData>? Results { get; set; }
+        public int Page { get; set; }
+        public int TotalResults { get; set; } 
+        public int TotalPages { get; set; }
     }
 
     public class MovieData

@@ -23,13 +23,19 @@ namespace NetflixClone.Services
             while (morePages)
             {
                 var response = await _httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?api_key=333c507e13a6708b1caa02ed821254c7&page={page}");
+
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var movieData = JsonSerializer.Deserialize<MovieApiResponse>(content);
 
+                    // Debugging: Log the API response content to see what is being returned
+                    Console.WriteLine($"API Response for page {page}: {content}");
+
                     if (movieData?.Results != null && movieData.Results.Any())
                     {
+                        var newMovies = new List<Movie>(); // To collect new movies to save in bulk
+
                         foreach (var movie in movieData.Results)
                         {
                             if (!_context.Movies.Any(m => m.Id == movie.Id))
@@ -43,16 +49,21 @@ namespace NetflixClone.Services
                                     ReleaseDate = movie.ReleaseDate ?? DateTime.Now,
                                     Genre = movie.Genre ?? "Unknown Genre"
                                 };
-                                _context.Movies.Add(newMovie);
+                                newMovies.Add(newMovie); // Add to the list instead of saving immediately
                             }
                         }
-                        await _context.SaveChangesAsync();
+
+                        if (newMovies.Any())
+                        {
+                            _context.Movies.AddRange(newMovies); // Add all new movies at once
+                            await _context.SaveChangesAsync(); // Save all movies in a single transaction
+                        }
                     }
 
-                    // Check if there are more pages
-                    if (movieData?.Results == null || movieData.Results.Count < 20)
+                    // Debugging: Check if more pages are available by inspecting the 'total_pages' field
+                    if (movieData?.TotalPages <= page)
                     {
-                        morePages = false; // End the loop if fewer than 20 movies returned
+                        morePages = false; // End the loop if we've reached the last page
                     }
                     else
                     {
@@ -62,6 +73,8 @@ namespace NetflixClone.Services
                 else
                 {
                     morePages = false; // End the loop if the response fails
+                    // Optionally log the error or retry here
+                    Console.WriteLine("API request failed.");
                 }
             }
         }

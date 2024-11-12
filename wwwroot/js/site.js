@@ -66,7 +66,7 @@ async function getTrendingContent() {
     }
 }
 
-// Display top 12 trending movies/TV shows
+// Display top 10 trending movies/TV shows
 function displayTrendingMovies(slideIndex) {
     const moviesGrid = document.getElementById('moviesGrid');
     moviesGrid.innerHTML = '';  // Clear the grid
@@ -220,8 +220,19 @@ function showTrailer(trailerUrl, title, description, posterUrl) {
     // Play Trailer button behavior
     const playTrailerBtn = document.getElementById('playTrailerBtn');
     playTrailerBtn.onclick = function () {
-        trailerIframe.style.display = 'block'; 
+        window.open(trailerUrl, '_blank');
     };
+
+    //Redirect to SignUp page when user clicks on get started button
+    document.addEventListener('DOMContentLoaded', () => {
+        const getStartedBtn = document.querySelectorAll('.get-started-btn');
+        if (getStartedBtn) {
+            getStartedBtn.addEventListener('click', () => {
+                console.log('Get Started button clicked');
+                window.location.href = '/Home/SignUp';
+            });
+        }
+    });
 }
 
 // Initial call to populate content when the page loads
