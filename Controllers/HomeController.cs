@@ -152,6 +152,23 @@ namespace NetflixClone.Controllers
             return View();
         }
 
+        public ActionResult ChoosePlan2()
+        {
+            ViewData["BodyClass"] = "white-background";
+            return View();
+        }
+        public ActionResult PaymentSelection()
+        {
+            ViewData["BodyClass"] = "white-background";
+            return View();
+        }
+
+        public ActionResult CardSetup()
+        {
+            ViewData["BodyClass"] = "white-background";
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

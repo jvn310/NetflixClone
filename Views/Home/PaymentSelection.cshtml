@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Payment Selection page";
+}
+
+<div class="content">
+    <div class="icon">
+        <i class="fa-solid fa-lock"></i>
+    </div>
+    <p class="step">STEP 3 OF 3</p>
+    <h2 class="choose-how-to-pay">Choose how to pay</h2>
+    <p class="description">
+        Your payment is encrypted and you can change how you pay anytime.<br>
+        <strong>Secure for peace of mind. Cancel easily online.</strong>
+    </p>
+
+    <div class="payment-options">
+        <div class="payment-option" onclick="selectPayment('card')">
+            <span>Credit or Debit Card</span>
+            <img src="visa-mastercard-amex.png" alt="Credit Card Icons">
+        </div>
+        <div class="payment-option" onclick="selectPayment('gift')">
+            <span>Gift Code</span>
+            <img src="netflix-gift.png" alt="Gift Code Icon">
+        </div>
+    </div>
+</div>
+    </div>

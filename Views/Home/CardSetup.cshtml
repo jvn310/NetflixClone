@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Credit Card Setup page";
+}
+
+<div class="content">
+    <p class="step">STEP 3 OF 3</p>
+    <h2>Set up your credit or debit card</h2>
+    <div class="card-icons">
+        <img src="visa-icon.png" alt="Visa">
+        <img src="mastercard-icon.png" alt="MasterCard">
+        <img src="amex-icon.png" alt="American Express">
+    </div>
+
+    <form class="card-form">
+        <input type="text" placeholder="Card number" class="card-input">
+        <div class="card-details">
+            <input type="text" placeholder="Expiration date" class="card-input">
+            <input type="text" placeholder="CVV" class="card-input">
+        </div>
+        <input type="text" placeholder="Name on card" class="card-input">
+
+        <div class="plan-info">
+            <p>R 49/month <span class="plan-type">Mobile</span> <a href="#">Change</a></p>
+        </div>
+
+        <p class="terms">
+            Your payments will be processed internationally. Additional bank fees may apply.<br>
+            By checking the checkbox below, you agree to our <a href="#">Terms of Use</a>, <a href="#">Privacy Statement</a>,
+            and that you are over 18. Netflix will automatically continue your membership and charge the membership fee
+            (currently R 49/month) to your payment method until you cancel. You may cancel at any time to avoid future charges.
+        </p>
+
+        <label class="checkbox-container">
+            <input type="checkbox" required>
+            <span>I agree.</span>
+        </label>
+
+        <button type="submit" class="membership-btn">Start Membership</button>
+    </form>
+</div>

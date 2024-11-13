@@ -1,0 +1,76 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Choose Plan";
+}
+
+<div class="container text-center mt-5">
+    <h2>STEP 1 OF 3</h2>
+    <h1>Choose the plan that's right for you</h1>
+</div>
+
+<div class="plan-container">
+    <div class="plan-card" onclick="selectPlan(this, 'Mobile')">
+        <div class="plan-header">Mobile<br>480p</div>
+        <div class="plan-detail">Monthly price: R 49</div>
+        <div class="plan-detail">Video and sound quality: Fair</div>
+        <div class="plan-detail">Resolution: 480p</div>
+        <div class="plan-detail">Supported devices: Mobile phone, tablet</div>
+        <div class="plan-detail">Devices you can watch at once: 1</div>
+        <div class="plan-detail">Download devices: 1</div>
+    </div>
+
+    <div class="plan-card" onclick="selectPlan(this, 'Basic')">
+        <div class="plan-header">Basic<br>720p</div>
+        <div class="plan-detail">Monthly price: R 99</div>
+        <div class="plan-detail">Video and sound quality: Good</div>
+        <div class="plan-detail">Resolution: 720p (HD)</div>
+        <div class="plan-detail">Supported devices: TV, computer, mobile phone, tablet</div>
+        <div class="plan-detail">Devices you can watch at once: 1</div>
+        <div class="plan-detail">Download devices: 1</div>
+    </div>
+
+    <div class="plan-card" onclick="selectPlan(this, 'Standard')">
+        <div class="plan-header">Standard<br>1080p</div>
+        <div class="plan-detail">Monthly price: R 159</div>
+        <div class="plan-detail">Video and sound quality: Great</div>
+        <div class="plan-detail">Resolution: 1080p (Full HD)</div>
+        <div class="plan-detail">Supported devices: TV, computer, mobile phone, tablet</div>
+        <div class="plan-detail">Devices you can watch at once: 2</div>
+        <div class="plan-detail">Download devices: 2</div>
+    </div>
+
+    <div class="plan-card plan-premium" onclick="selectPlan(this, 'Premium')">
+        <div class="most-popular">Most Popular</div>
+        <div class="plan-header">Premium<br>4K + HDR</div>
+        <div class="plan-detail">Monthly price: R 199</div>
+        <div class="plan-detail">Video and sound quality: Best</div>
+        <div class="plan-detail">Resolution: 4K (Ultra HD) + HDR</div>
+        <div class="plan-detail">Spatial audio: Included</div>
+        <div class="plan-detail">Supported devices: TV, computer, mobile phone, tablet</div>
+        <div class="plan-detail">Devices you can watch at once: 4</div>
+        <div class="plan-detail">Download devices: 6</div>
+    </div>
+</div>
+
+<div class="container text-center mt-4">
+    <button id="nextBtn" class="btn-next">Next</button>
+</div>
+
+<script>
+    let selectedPlan = null;
+
+    function selectPlan(card, planName) {
+        if (selectedPlan) {
+            selectedPlan.classList.remove('selected');
+        }
+
+        card.classList.add('selected');
+        selectedPlan = card;
+
+        document.getElementById('nextBtn').classList.add('show');
+        console.log("Selected Plan:", planName);
+    }
+</script>
