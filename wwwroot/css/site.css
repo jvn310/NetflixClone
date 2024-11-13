@@ -708,6 +708,11 @@ a:hover {
         margin-bottom: 20px;
     }
 
+.inbox-page {
+    text-align: center;
+    padding-top: 50px;
+}
+
 .inbox-page .icon-container {
     margin: 20px 0;
 }
@@ -795,6 +800,54 @@ a:hover {
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 20px;
+}
+
+.btn-red {
+    background-color: #e50914;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+    .btn-red:hover {
+        background-color: #b20710;
+    }
+
+.step-title {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.main-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.plan-page, .password-page {
+    max-width: 400px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.plan-feature {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.plan-feature-icon {
+    color: #e50914;
+    margin-right: 8px;
 }
 
 .btn-red {
