@@ -185,6 +185,9 @@ namespace NetflixClone.Controllers
 
         public ActionResult WhoIsWatching()
         {
+            ViewData["BodyClass"] = "black-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignIn"] = false;
             return View();
         }
 
