@@ -695,6 +695,23 @@ a:hover {
             background-color: #b20710;
         }
 
+.create-password-btn {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+    .create-password-btn:hover {
+        background-color: #d0d0d0;
+    }
+
     .setup-page .icons {
         font-size: 2rem;
         color: #e50914;
