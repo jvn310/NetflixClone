@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Who is Watching";
+}
+
+<div class="who-is-watching">
+    <h1>Who is watching?</h1>
+    <div class="profiles-container">
+        <div class="profile" onclick="selectProfile('User1')">
+            <img src="~/images/user1.png" alt="User1's Profile Picture" class="profile-pic">
+            <p class="profile-name">User1</p>
+        </div>
+        <div class="profile" onclick="selectProfile('User2')">
+            <img src="~/images/user2.png" alt="User2's Profile Picture" class="profile-pic">
+            <p class="profile-name">User2</p>
+        </div>
+        <!-- Add more profiles as needed -->
+        <div class="profile add-profile">
+            <button onclick="addProfile()">Add Profile</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function selectProfile(profileName) {
+        // Redirect or perform action based on selected profile
+        window.location.href = `/Home/ProfileSelection?profile=${profileName}`;
+    }
+
+    function addProfile() {
+        // Redirect to a page or open a form to add a new profile
+        window.location.href = "/Home/AddProfile";
+    }
+</script>
