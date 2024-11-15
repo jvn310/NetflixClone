@@ -26,6 +26,11 @@
                             <a asp-controller="Home" asp-action="SignUp" id="danger-btn" class="ms-auto">Sign In</a>
 
                         }
+                        @if (ViewData["ShowSignOut"] is bool showSignOut && showSignOut)
+                        {
+                            <a asp-controller="Home" asp-action="Index" id="danger-btn" class="ms-auto">Sign Out</a>
+
+                        }
                     </div>
                 </div>
             </nav>

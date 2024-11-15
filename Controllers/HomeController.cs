@@ -131,41 +131,55 @@ namespace NetflixClone.Controllers
         public IActionResult SignUp1()
         {
             ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignIn"] = true;
             return View();
         }
 
         public ActionResult CheckInbox()
         {
             ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignIn"] = true;
             return View();
         }
 
         public ActionResult CreatePassword()
         {
             ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignIn"] = true;
             return View(); 
         }
 
         public ActionResult ChoosePlan()
         {
             ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignOut"] = true;
             return View();
         }
 
         public ActionResult ChoosePlan2()
         {
             ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignOut"] = true;
             return View();
         }
         public ActionResult PaymentSelection()
         {
             ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignOut"] = true;
             return View();
         }
 
         public ActionResult CardSetup()
         {
             ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignOut"] = true;
             return View();
         }
 

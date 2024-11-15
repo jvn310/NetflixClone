@@ -10,7 +10,8 @@
         <div class="form-group">
             <label for="email">Ready to watch? Enter your email to create or restart your membership.</label>
             <div class="email-btn">
-            <input type="email" class="form-control" id="email" name="email" required placeholder="Email address">
+            <input type="email" class="form-control" id="email" name="email" required placeholder="Email address"
+                           pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
                     <button type="submit" class="btn btn-danger">Get Started <i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
