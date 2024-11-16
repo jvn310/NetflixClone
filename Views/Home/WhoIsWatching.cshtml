@@ -1,6 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<NetflixClone.Models.Profile>
+
 @{
     ViewData["Title"] = "Who is Watching";
 }
@@ -8,24 +7,28 @@
 <div class="who-is-watching">
     <h1>Who's watching?</h1>
     <div class="profiles-container">
-        <div class="profile" onclick="selectProfile('User1')">
-            <i class="fas fa-user-circle profile-icon" style="color: #3498db;"></i>
-            <p class="profile-name">Mrutunjay</p>
-        </div>
-        <div class="profile" onclick="selectProfile('User2')">
-            <i class="fas fa-user-circle profile-icon" style="color: #f1c40f;"></i>
-            <p class="profile-name">Ashish</p>
-        </div>
-        <div class="profile" onclick="selectProfile('Children')">
-            <i class="fas fa-child profile-icon" style="color: #9b59b6;"></i>
-            <p class="profile-name">Children</p>
-        </div>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var profile in Model)
+            {
+                <div class="profile" onclick="selectProfile('@profile.Id')">
+                    <i class="fas fa-user-circle profile-icon" style="color: @profile.IconUrl;"></i>
+                    <p class="profile-name">@profile.Name</p>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No profiles found. Add a new profile below!</p>
+        }
+
+        <!-- Add Profile Button -->
         <div class="profile add-profile" onclick="openAddProfileModal()">
             <i class="fas fa-plus-circle profile-icon add-icon"></i>
             <p class="profile-name">Add Profile</p>
         </div>
     </div>
-    <button class="manage-profiles-btn">Manage Profiles</button>
+    <button class="manage-profiles-btn" onclick="window.location.href='/Home/ManageProfiles'">Manage Profiles</button>
 </div>
 
 <!-- Add Profile Modal -->
@@ -33,7 +36,7 @@
     <div class="profile-modal-content">
         <span class="close" onclick="closeAddProfileModal()">&times;</span>
         <h2>Add New Profile</h2>
-        <form method="post" action="Home/AddProfile">
+        <form method="post" action="/Profile/AddProfile">
             <div class="profile-form-group">
                 <label for="profileName">Profile Name</label>
                 <input type="text" id="profileName" name="profileName" required placeholder="Enter profile name">
@@ -54,9 +57,9 @@
 </div>
 
 <script>
-    function selectProfile(profileName) {
+    function selectProfile(profileId) {
         // Redirect or perform action based on selected profile
-        window.location.href = `/Home/ProfileSelection?profile=${profileName}`;
+        window.location.href = `/Profile/SelectProfile?profileId=${profileId}`;
     }
 
     function openAddProfileModal() {

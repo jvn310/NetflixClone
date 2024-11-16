@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSession();
+
 // Background service
 builder.Services.AddHostedService<MovieFetchBackgroundService>();
 
@@ -28,6 +30,8 @@ builder.Services.AddDbContext<NetflixCloneDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(8, 0, 40))));
 
+builder.Services.AddScoped<ProfileService>();
+
 // Register IHttpClientFactory
 builder.Services.AddHttpClient();
 
@@ -40,6 +44,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
