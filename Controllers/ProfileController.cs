@@ -16,19 +16,6 @@ public class ProfileController : Controller
         _context = context;
     }
 
-    public IActionResult WhoIsWatching()
-    {
-        int userId = 1;
-
-        // Fetch profiles for the logged-in user
-        var profiles = _profileService.GetProfilesByUserId(userId);
-
-        profiles ??= new List<Profile>();
-
-        return View("~/Views/Home/WhoIsWatching.cshtml",profiles);
-
-    }
-
     [HttpPost]
     public IActionResult AddProfile(string profileName, string profileColor)
     {
@@ -37,18 +24,18 @@ public class ProfileController : Controller
         var newProfile = new Profile
         {
             Name = profileName,
-            IconUrl = profileColor, 
+            IconUrl = profileColor,
             UserId = userId
         };
 
         _context.Profiles.Add(newProfile);
         _context.SaveChanges();
 
-        return RedirectToAction("WhoIsWatching");
+        return RedirectToAction("WhoIsWatching", "Home");
     }
 
     [HttpPost]
-    public IActionResult SelectProfile(int profileId)
+    public IActionResult SelectProfile([FromBody] int profileId)
     {
         var selectedProfile = _profileService.GetProfileById(profileId);
 
@@ -56,14 +43,55 @@ public class ProfileController : Controller
         {
             HttpContext.Session.SetString("SelectedProfileName", selectedProfile.Name);
             HttpContext.Session.SetString("SelectedProfileIcon", selectedProfile.IconUrl);
+
+            return Json(new { success = true });
         }
 
-        return RedirectToAction("HomeNetflix", "Home");
+        return Json(new { success = false, message = "Profile not found." });
     }
+
 
     public IActionResult ManageProfiles()
     {
-        var profiles = _profileService.GetAllProfiles(); 
-        return View(profiles); 
+        var profiles = _profileService.GetAllProfiles();
+        ViewData["BodyClass"] = "black-background";
+        ViewData["Page"] = "Home";
+        ViewData["ShowSignIn"] = false;
+        return View("~/Views/Home/ManageProfiles.cshtml", profiles); 
+    }
+
+    [HttpPost]
+    public IActionResult EditProfile([FromBody] Profile updatedProfile)
+    {
+        var profile = _context.Profiles.FirstOrDefault(p => p.Id == updatedProfile.Id);
+        if (profile == null) return NotFound();
+
+        profile.Name = updatedProfile.Name;
+        profile.IconUrl = updatedProfile.IconUrl;
+        _context.SaveChanges();
+
+        return Ok();
+    }
+
+    [HttpPost]
+    public IActionResult DeleteProfile([FromBody] int id)
+    {
+        try
+        {
+            var profile = _context.Profiles.FirstOrDefault(p => p.Id == id);
+            if (profile == null)
+            {
+                return Json(new { success = false, message = "Profile not found." });
+            }
+
+            _context.Profiles.Remove(profile);
+            _context.SaveChanges();
+
+            return Json(new { success = true });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = ex.Message });
+        }
     }
 }

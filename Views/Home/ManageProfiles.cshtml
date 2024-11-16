@@ -17,14 +17,15 @@
     {
         @foreach (var profile in Model)
         {
-            <div class="profile">
+            <div class="profile" data-id="@profile.Id">
                 <i class="fas fa-user-circle profile-icon" style="color: @profile.IconUrl;"></i>
                 <p class="profile-name">@profile.Name</p>
-                <a href="/Profile/EditProfile/@profile.Id">Edit</a>
-                <form method="post" action="/Profile/DeleteProfile" style="display:inline;">
-                    <input type="hidden" name="profileId" value="@profile.Id" />
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete this profile?');">Delete</button>
-                </form>
+
+                <!-- Edit Button -->
+                <button class="btn btn-edit" onclick="openEditProfileModal('@profile.Id', '@profile.Name', '@profile.IconUrl')">Edit</button>
+
+                <!-- Delete Button -->
+                <button class="btn btn-delete" onclick="deleteProfile('@profile.Id')">Delete</button>
             </div>
         }
     }
@@ -33,3 +34,121 @@
         <p>No profiles available to manage.</p>
     }
 </div>
+
+<button class="btn-back" onclick="goBack()">⬅️ Back</button>
+
+<!-- Edit Profile Modal -->
+<div id="editProfileModal" class="p-modal">
+    <div class="p-modal-content">
+        <span class="p-close" onclick="closeEditProfileModal()">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="editProfileForm">
+            <input type="hidden" id="editProfileId" name="profileId" />
+            <div class="profile-form-group">
+                <label for="editProfileName">Profile Name</label>
+                <input type="text" id="editProfileName" name="profileName" required />
+            </div>
+            <div class="profile-form-group">
+                <label for="editProfileColor">Profile Icon Color</label>
+                <select id="editProfileColor" name="profileColor">
+                    <option value="#3498db">Blue</option>
+                    <option value="#f1c40f">Yellow</option>
+                    <option value="#9b59b6">Purple</option>
+                    <option value="#e74c3c">Red</option>
+                    <option value="#2ecc71">Green</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-save" onclick="saveProfile()">Save</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back(); // Uses browser history to navigate back
+    }
+
+    // Open the Edit Profile Modal
+    function openEditProfileModal(profileId, profileName, profileColor) {
+        document.getElementById("editProfileId").value = profileId;
+        document.getElementById("editProfileName").value = profileName;
+        document.getElementById("editProfileColor").value = profileColor;
+        document.getElementById("editProfileModal").style.display = "block";
+    }
+
+    // Close the Edit Profile Modal
+    function closeEditProfileModal() {
+        document.getElementById("editProfileModal").style.display = "none";
+    }
+
+    // Save Profile Changes via AJAX
+    function saveProfile() {
+        const profileId = document.getElementById("editProfileId").value;
+        const profileName = document.getElementById("editProfileName").value;
+        const profileColor = document.getElementById("editProfileColor").value;
+
+        fetch('/Profile/EditProfile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': '@Html.AntiForgeryToken()' // For CSRF protection
+            },
+            body: JSON.stringify({ Id: profileId, Name: profileName, IconUrl: profileColor })
+        })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // Refresh page to show changes
+                } else {
+                    alert("Failed to update profile.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Delete Profile via AJAX
+    function deleteProfile(profileId) {
+        fetch('/Profile/DeleteProfile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': '@Html.AntiForgeryToken()' // For CSRF protection
+            },
+            body: JSON.stringify(profileId)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Find and remove the profile element from the DOM
+                    const profileElement = document.querySelector(`.profile[data-id='${profileId}']`);
+                    if (profileElement) {
+                        profileElement.remove();
+                    }
+
+                    // Show a success message
+                    showMessage("Profile deleted successfully.", "success");
+                } else {
+                    // Show an error message
+                    showMessage(data.message || "Failed to delete profile.", "error");
+                }
+            })
+            .catch(error => {
+                // Show an error message in case of a fetch failure
+                showMessage("An error occurred while trying to delete the profile.", "error");
+                console.error("Delete Profile Error:", error);
+            });
+    }
+
+    function showMessage(message, type) {
+        const messageContainer = document.createElement("div");
+        messageContainer.className = `message ${type}`;
+        messageContainer.innerText = message;
+
+        // Append the message to the body
+        document.body.appendChild(messageContainer);
+
+        // Remove message after 3 seconds
+        setTimeout(() => {
+            messageContainer.remove();
+        }, 3000);
+    }
+</script>

@@ -12,7 +12,13 @@
     <div class="step-title">STEP 1 OF 3</div>
     <div class="main-title">Check your inbox</div>
     <div class="info-text">
-        We sent a sign-up link to <strong>tumelophatlane0410@gmail.com</strong>. Tap the link in the email to finish setting up your account.
+        @if (ViewBag.Email !=null)
+        {
+            <p> We sent a sign-up link to <strong>@ViewBag.Email</strong>. Tap the link in the email to finish setting up your account.</p>
+        } else
+        {
+            <p>We sent a sign-up link to your email. Tap the link in the email to finish setting up your account.</p>
+        }
     </div>
     <button class="btn-red">Resend Link</button>
     <button class="btn-gray" onclick="window.location.href='CreatePassword'">Create Password Instead</button>

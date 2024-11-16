@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NetflixClone.Models;
 using System.Diagnostics;
 using NetflixClone.Data;
+using NetflixClone.Services;
 
 namespace NetflixClone.Controllers
 {
@@ -10,12 +11,13 @@ namespace NetflixClone.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly NetflixCloneDbContext _context;
+        private readonly ProfileService _profileService;
 
-        public HomeController(ILogger<HomeController> logger, NetflixCloneDbContext context)
+        public HomeController(ILogger<HomeController> logger, NetflixCloneDbContext context, ProfileService profileService)
         {
             _logger = logger;
             _context = context;
-            _context = context;
+            _profileService = profileService;
         }
 
         public IActionResult Index()
@@ -128,6 +130,7 @@ namespace NetflixClone.Controllers
                 .ToList();
         }
 
+        [HttpGet]
         public IActionResult SignUp1()
         {
             ViewData["BodyClass"] = "white-background";
@@ -136,8 +139,29 @@ namespace NetflixClone.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult SignUp1(string email)
+        {
+            ViewBag.Email = email;
+            ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignIn"] = true;
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult CheckInbox()
         {
+            ViewData["BodyClass"] = "white-background";
+            ViewData["Page"] = "Home";
+            ViewData["ShowSignIn"] = true;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CheckInbox(string email)
+        {
+            ViewBag.Email = email;
             ViewData["BodyClass"] = "white-background";
             ViewData["Page"] = "Home";
             ViewData["ShowSignIn"] = true;
@@ -185,10 +209,17 @@ namespace NetflixClone.Controllers
 
         public ActionResult WhoIsWatching()
         {
+            int userId = 1;
+
+            // Fetch profiles for the logged-in user
+            var profiles = _profileService.GetProfilesByUserId(userId);
+
+            profiles ??= new List<Profile>();
             ViewData["BodyClass"] = "black-background";
             ViewData["Page"] = "Home";
             ViewData["ShowSignIn"] = false;
-            return View();
+
+            return View("~/Views/Home/WhoIsWatching.cshtml", profiles);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

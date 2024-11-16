@@ -6,6 +6,7 @@
 
 <div class="who-is-watching">
     <h1>Who's watching?</h1>
+    <div id="messageContainer" class="message-container"></div>
     <div class="profiles-container">
         @if (Model != null && Model.Any())
         {
@@ -28,7 +29,7 @@
             <p class="profile-name">Add Profile</p>
         </div>
     </div>
-    <button class="manage-profiles-btn" onclick="window.location.href='/Home/ManageProfiles'">Manage Profiles</button>
+    <button class="manage-profiles-btn" onclick="window.location.href='/Profile/ManageProfiles'">Manage Profiles</button>
 </div>
 
 <!-- Add Profile Modal -->
@@ -57,9 +58,38 @@
 </div>
 
 <script>
+    function showMessage(message, type) {
+        const messageContainer = document.getElementById("messageContainer");
+        messageContainer.innerHTML = `<p class="${type}">${message}</p>`;
+        messageContainer.style.display = "block";
+
+        setTimeout(() => {
+            messageContainer.style.display = "none";
+        }, 3000);
+    }
+
+    // Redirect to HomeNetflix with selected profile
     function selectProfile(profileId) {
-        // Redirect or perform action based on selected profile
-        window.location.href = `/Profile/SelectProfile?profileId=${profileId}`;
+        fetch('/Profile/SelectProfile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': '@Html.AntiForgeryToken()' // CSRF protection
+            },
+            body: JSON.stringify(profileId) 
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/Home/HomeNetflix';
+                } else {
+                    showMessage(data.message || "Failed to select the profile. Please try again.", "error");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage("An error occurred while selecting the profile.", "error");
+            });
     }
 
     function openAddProfileModal() {
