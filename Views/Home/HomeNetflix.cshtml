@@ -192,3 +192,49 @@ else
     </div>
 </div>
 
+<script>
+// Toggle Search Bar
+function toggleSearchBar() {
+    const searchBar = document.getElementById("searchBar");
+    if (searchBar.style.display === "block") {
+        searchBar.style.display = "none";
+    } else {
+        searchBar.style.display = "block";
+    }
+}
+
+// Search Movies/TV Shows
+function searchMovies(query) {
+    if (query.length < 3) return; // Only search if query is 3+ characters
+
+    fetch(`/Home/SearchMovies?query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Replace with UI update logic
+        })
+        .catch(error => console.error("Error searching movies:", error));
+}
+
+// Switch Profile
+function switchProfile(profileId) {
+    fetch('/Profile/SelectProfile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'RequestVerificationToken': '@Html.AntiForgeryToken()' // CSRF protection
+        },
+        body: JSON.stringify(profileId)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '/Home/HomeNetflix'; // Redirect to Netflix homepage
+            } else {
+                console.error("Failed to switch profile.");
+            }
+        })
+        .catch(error => {
+            console.error("Error switching profile:", error);
+        });
+}
+</script>

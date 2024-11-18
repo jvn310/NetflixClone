@@ -15,7 +15,7 @@ namespace NetflixClone.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(User model)
+        public IActionResult Login(User model)
         {
             if (ModelState.IsValid)
             {

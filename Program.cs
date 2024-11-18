@@ -10,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSession();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true; // Protect the cookie from client-side scripts
+    options.Cookie.IsEssential = true; // Ensure the cookie is always sent
+});
 
 // Background service
 builder.Services.AddHostedService<MovieFetchBackgroundService>();
@@ -52,6 +57,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

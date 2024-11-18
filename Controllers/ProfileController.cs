@@ -37,19 +37,18 @@ public class ProfileController : Controller
     [HttpPost]
     public IActionResult SelectProfile([FromBody] int profileId)
     {
-        var selectedProfile = _profileService.GetProfileById(profileId);
+        var profile = _context.Profiles.FirstOrDefault(p => p.Id == profileId);
 
-        if (selectedProfile != null)
+        if (profile != null)
         {
-            HttpContext.Session.SetString("SelectedProfileName", selectedProfile.Name);
-            HttpContext.Session.SetString("SelectedProfileIcon", selectedProfile.IconUrl);
-
+            HttpContext.Session.SetInt32("SelectedProfileId", profile.Id);
+            HttpContext.Session.SetString("SelectedProfileName", profile.Name);
             return Json(new { success = true });
         }
 
+        Console.WriteLine($"Profile not found for ID: {profileId}");
         return Json(new { success = false, message = "Profile not found." });
     }
-
 
     public IActionResult ManageProfiles()
     {

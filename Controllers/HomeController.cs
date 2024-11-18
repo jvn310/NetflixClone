@@ -4,6 +4,9 @@ using NetflixClone.Models;
 using System.Diagnostics;
 using NetflixClone.Data;
 using NetflixClone.Services;
+using Microsoft.AspNetCore.Antiforgery;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace NetflixClone.Controllers
 {
@@ -12,12 +15,16 @@ namespace NetflixClone.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly NetflixCloneDbContext _context;
         private readonly ProfileService _profileService;
+        private readonly MovieService _movieService;
+        private readonly IAntiforgery _antiforgery;
 
-        public HomeController(ILogger<HomeController> logger, NetflixCloneDbContext context, ProfileService profileService)
+        public HomeController(ILogger<HomeController> logger, NetflixCloneDbContext context, ProfileService profileService, MovieService movieService, IAntiforgery antiforgery)
         {
             _logger = logger;
             _context = context;
             _profileService = profileService;
+            _movieService = movieService;
+            _antiforgery = antiforgery;
         }
 
         public IActionResult Index()
@@ -33,7 +40,7 @@ namespace NetflixClone.Controllers
             return View();
         }
 
-        public IActionResult SignUp()
+        public IActionResult Login()
         {
             ViewData["BodyClass"] = " ";
             ViewData["Page"] = "Home";
@@ -42,11 +49,58 @@ namespace NetflixClone.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult HomeNetflix(string email, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+            if (user != null && VerifyPassword(password, user.Password))
+            {
+                TempData["UserName"] = email; 
+                return RedirectToAction("HomeNetflix");
+            }
+
+            ViewBag.ErrorMessage = "Invalid email or password. Please try again.";
+            return View("Login"); 
+        }
+
+        private string HashPassword(string password)
+        {
+            if (string.IsNullOrEmpty(password))
+                throw new ArgumentNullException(nameof(password), "Password cannot be null or empty.");
+
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(bytes);
+            }
+        }
+
+        private bool VerifyPassword(string password, string hashedPassword)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                var hash = Convert.ToBase64String(bytes);
+
+                return hash == hashedPassword;
+            }
+        }
+
         [Route("Home/HomeNetflix")]
         public async Task<IActionResult> HomeNetflix()
         {
             ViewData["BodyClass"] = "black-background";
             ViewData["Page"] = "Movie";
+
+            var profiles = _profileService.GetAllProfiles(); 
+            ViewData["Profiles"] = profiles;
+
+            var selectedProfileName = HttpContext.Session.GetString("SelectedProfileName") ?? "Guest";
+            var selectedProfileIcon = HttpContext.Session.GetString("SelectedProfileIcon") ?? "#ffffff";
+
+            ViewData["SelectedProfileName"] = selectedProfileName;
+            ViewData["SelectedProfileIcon"] = selectedProfileIcon;
 
             // Fetch movies from the database
             var movies = await _context.Movies.ToListAsync();
@@ -168,12 +222,30 @@ namespace NetflixClone.Controllers
             return View();
         }
 
-        public ActionResult CreatePassword()
+        public ActionResult CreatePassword(string email)
         {
+            ViewBag.Email = email;
             ViewData["BodyClass"] = "white-background";
             ViewData["Page"] = "Home";
             ViewData["ShowSignIn"] = true;
             return View(); 
+        }
+
+        [HttpPost]
+        public ActionResult CreatePassword(string email, string password)
+        {
+            var hashedPassword = HashPassword(password);
+
+            var user = new User
+            {
+                Email = email,
+                Password = hashedPassword,
+            };
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return RedirectToAction("ChoosePlan");
         }
 
         public ActionResult ChoosePlan()
@@ -211,6 +283,9 @@ namespace NetflixClone.Controllers
         {
             int userId = 1;
 
+            var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+            ViewData["__RequestVerificationToken"] = tokens.RequestToken;
+
             // Fetch profiles for the logged-in user
             var profiles = _profileService.GetProfilesByUserId(userId);
 
@@ -221,6 +296,14 @@ namespace NetflixClone.Controllers
 
             return View("~/Views/Home/WhoIsWatching.cshtml", profiles);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string query)
+        {
+            var searchResults = await _movieService.SearchMoviesAsync(query);
+            return View(searchResults);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

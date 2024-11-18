@@ -17,7 +17,7 @@
     <div class="info-text">
         @if (ViewBag.Email !=null)
         {
-            <p>We'll send a sign-up link to <strong>@ViewBag.Email</strong> so you can use Netflixwithout a password on any device at any time.</p>
+            <p>We'll send a sign-up link to <strong>@ViewBag.Email</strong> so you can use Netflix without a password on any device at any time.</p>
         } else
         {
             <p>We'll send a sign-up link to your email so you can use Netflix without a password on any device at any time.</p>
@@ -27,5 +27,8 @@
         <input type="checkbox" id="special-offers">
         <label for="special-offers">Please do not email me Netflix special offers.</label>
     </div>
-    <button class="create-password-btn" onclick="window.location.href='CreatePassword'">Create Password</button>
+    <button class="create-password-btn"
+            onclick="window.location.href='CreatePassword?email=@ViewBag.Email'">
+        Create Password
+    </button>
 </div>

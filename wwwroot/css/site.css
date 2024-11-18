@@ -805,7 +805,7 @@ a:hover {
     margin-bottom: 20px;
 }
 
-.form-control {
+.p-form-control {
     font-size: 1rem;
     padding: 10px;
     margin-bottom: 15px;
@@ -848,7 +848,7 @@ a:hover {
     margin-bottom: 10px;
 }
 
-.plan-page, .password-page {
+.plan-page, .password-page, .payment-content, .card-content {
     max-width: 400px;
     margin: 0 auto;
     padding-top: 50px;
@@ -948,7 +948,7 @@ a:hover {
     color: #000;
 }
 
-.btn-next {
+.btn-next, #nextButton {
     background-color: #e50914;
     color: #fff;
     width: 100%;
@@ -968,7 +968,7 @@ a:hover {
         background-color: #b20710;
     }
 
-.content .icon {
+.payment-content .icon {
     width: 50px;
     margin: 20px 0;
     color: #e50914;
@@ -995,6 +995,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #000;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -1006,9 +1007,13 @@ a:hover {
         background-color: #f0f0f0;
     }
 
-    .payment-option img {
-        height: 24px;
+    .payment-option img, .card-icons img {
+        height: 50px;
     }
+
+.card-icons img {
+    margin-bottom: 20px;
+}
 
 .choose-how-to-pay {
     font-size: 24px;
@@ -1053,6 +1058,10 @@ a:hover {
     color: #555;
     margin: 15px 0;
 }
+
+    .terms a {
+        color: #0071eb;
+    }
 
 .checkbox-container {
     display: flex;
@@ -1320,3 +1329,41 @@ a:hover {
         color: red;
         font-weight: bold;
     }
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.search-bar {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+    .search-bar input {
+        width: 200px;
+        padding: 5px;
+        border: none;
+        outline: none;
+    }
+
+.dropdown-menu {
+    background-color: #333;
+    color: white;
+    border: none;
+}
+
+    .dropdown-menu .dropdown-item {
+        color: white;
+    }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #444;
+        }

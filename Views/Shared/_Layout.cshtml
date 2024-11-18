@@ -23,7 +23,7 @@
 
                         @if (ViewData["ShowSignIn"] is bool showSignIn && showSignIn)
                         {
-                            <a asp-controller="Home" asp-action="SignUp" id="danger-btn" class="ms-auto">Sign In</a>
+                            <a asp-controller="Home" asp-action="Login" id="danger-btn" class="ms-auto">Sign In</a>
 
                         }
                         @if (ViewData["ShowSignOut"] is bool showSignOut && showSignOut)
@@ -61,10 +61,20 @@
                             <a class="nav-link" href="#">Browse by Language</a>
                         </li>
                     </ul>
+
                         <div class="navbar-icons ms-auto">
-                            <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
-                            <a href="#" class="nav-icon"><i class="fas fa-user-circle"></i></a>
-                        </div>
+                            <div class="dropdown">
+                                <a href="#" class="nav-icon dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-circle" style="color:@ViewData["SelectedProfileIcon"]"></i>
+                                    <span>@ViewData["SelectedProfileName"]</span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                    <li><a class="dropdown-item" href="#">Switch Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Profile/ManageProfiles">Manage Profiles</a></li>
+                                </ul>
+                            </div>
+            </div>
                 </div>
             </div>
         </nav>

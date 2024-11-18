@@ -5,7 +5,7 @@
     ViewData["Title"] = "Payment Selection page";
 }
 
-<div class="content">
+<div class="payment-content">
     <div class="icon">
         <i class="fa-solid fa-lock"></i>
     </div>
@@ -19,12 +19,33 @@
     <div class="payment-options">
         <div class="payment-option" onclick="selectPayment('card')">
             <span>Credit or Debit Card</span>
-            <img src="visa-mastercard-amex.png" alt="Credit Card Icons">
-        </div>
-        <div class="payment-option" onclick="selectPayment('gift')">
-            <span>Gift Code</span>
-            <img src="netflix-gift.png" alt="Gift Code Icon">
+            <img src="~/images/payment.png" alt="Credit Card Icons">
         </div>
     </div>
 </div>
+<button id="nextButton" style="display: none;" onclick="proceedToNextStep()">Next</button>
     </div>
+
+<script>
+    let selectedPaymentMethod = null;
+
+    function selectPayment(method) {
+        selectedPaymentMethod = method;
+
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        paymentOptions.forEach(option => option.classList.remove('selected'));
+        event.currentTarget.classList.add('selected'); 
+
+        // Show the Next button
+        document.getElementById('nextButton').style.display = 'block';
+    }
+
+    function proceedToNextStep() {
+        if (selectedPaymentMethod) {
+            console.log("Selected Payment Method:", selectedPaymentMethod);
+            window.location.href = "CardSetup";
+        } else {
+            alert("Please select a payment method.");
+        }
+    }
+</script>

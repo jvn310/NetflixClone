@@ -7,12 +7,14 @@
 <div class="who-is-watching">
     <h1>Who's watching?</h1>
     <div id="messageContainer" class="message-container"></div>
+    <!-- CSRF Token -->
+    <input type="hidden" id="csrfToken" name="__RequestVerificationToken" value="@ViewData["__RequestVerificationToken"]" />
     <div class="profiles-container">
         @if (Model != null && Model.Any())
         {
             @foreach (var profile in Model)
             {
-                <div class="profile" onclick="selectProfile('@profile.Id')">
+                <div class="profile" onclick="selectProfile(@profile.Id)">
                     <i class="fas fa-user-circle profile-icon" style="color: @profile.IconUrl;"></i>
                     <p class="profile-name">@profile.Name</p>
                 </div>
@@ -70,13 +72,17 @@
 
     // Redirect to HomeNetflix with selected profile
     function selectProfile(profileId) {
+        const csrfToken = document.getElementById("csrfToken").value;
+
+        console.log("Selected Profile ID:", profileId); 
+
         fetch('/Profile/SelectProfile', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'RequestVerificationToken': '@Html.AntiForgeryToken()' // CSRF protection
+                'RequestVerificationToken': csrfToken
             },
-            body: JSON.stringify(profileId) 
+            body: JSON.stringify(profileId)
         })
             .then(response => response.json())
             .then(data => {
