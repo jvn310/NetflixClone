@@ -14,11 +14,29 @@
             <h1>@ViewBag.FeaturedMovie.Title</h1>
             <p>@ViewBag.FeaturedMovie.Description</p>
             <div class="buttons">
-                <a href="@ViewBag.FeaturedMovie.TrailerUrl" class="btn btn-play">Play</a>
+                <a href="@ViewBag.FeaturedMovie.TrailerUrl" class="btn btn-play" target="_blank">Play</a>
                 <a href="#" class="btn btn-info">More Info</a>
             </div>
         </div>
-        <div class="featured-background" style="background-image: url('@ViewBag.FeaturedMovie.PosterUrl');"></div>
+        <div class="featured-background">
+            @if (!string.IsNullOrEmpty(ViewBag.FeaturedMovie.TrailerUrl) && ViewBag.FeaturedMovie.TrailerUrl.Contains("youtube.com/watch"))
+            {
+                // Extract YouTube Video ID from the TrailerUrl
+                var videoId = ViewBag.FeaturedMovie.TrailerUrl.Split("v=")[1].Split("&")[0];
+
+                <iframe width="100%"
+                        height="500"
+                        src="https://www.youtube.com/embed/@videoId?autoplay=1&mute=1&loop=1&playlist=@videoId"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen>
+                </iframe>
+            }
+            else
+            {
+                <p>Unable to load the trailer.</p>
+            }
+        </div>
     </div>
 }
 else
@@ -204,16 +222,30 @@ function toggleSearchBar() {
 }
 
 // Search Movies/TV Shows
-function searchMovies(query) {
-    if (query.length < 3) return; // Only search if query is 3+ characters
+    function searchMovies(query) {
+        if (query.length < 3) return; // Only search if query is 3+ characters
 
-    fetch(`/Home/SearchMovies?query=${query}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); // Replace with UI update logic
-        })
-        .catch(error => console.error("Error searching movies:", error));
-}
+        fetch(`/Home/Search?query=${query}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Search results:", data);
+
+                const resultsContainer = document.getElementById("search-results");
+                resultsContainer.innerHTML = ""; // Clear previous results
+
+                data.forEach(movie => {
+                    const movieElement = document.createElement("div");
+                    movieElement.textContent = movie.title;
+                    resultsContainer.appendChild(movieElement);
+                });
+            })
+            .catch(error => console.error("Error searching movies:", error));
+    }
 
 // Switch Profile
 function switchProfile(profileId) {

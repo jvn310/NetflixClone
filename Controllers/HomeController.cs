@@ -300,10 +300,14 @@ namespace NetflixClone.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(string query)
         {
-            var searchResults = await _movieService.SearchMoviesAsync(query);
-            return View(searchResults);
-        }
+            if (string.IsNullOrEmpty(query))
+            {
+                return BadRequest("Query cannot be null or empty.");
+            }
 
+            var searchResults = await _movieService.SearchMoviesAsync(query);
+            return Json(searchResults); 
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
