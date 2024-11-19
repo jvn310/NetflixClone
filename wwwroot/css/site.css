@@ -478,6 +478,7 @@ a:hover {
     margin-top: 120px;
 }
 
+
 .option {
     margin-top: 30px;
 }
@@ -1229,6 +1230,11 @@ a:hover {
     color: white;
 }
 
+.profile-heading {
+    text-align: center;
+    padding-bottom: 40px;
+}
+
 .p-modal {
     display: none;
     position: fixed;
@@ -1306,6 +1312,8 @@ a:hover {
 }
 
 .btn-back {
+    margin-left: 350px;
+    margin-top: 40px;
     display: inline-block;
     margin-bottom: 20px;
     padding: 10px 20px;

@@ -58,6 +58,29 @@ namespace NetflixClone.Services
             return new List<Movie>(); 
         }
 
+        public async Task<List<Movie>> GetTVShowsAsync()
+        {
+            var response = await _httpClient.GetAsync($"https://api.themoviedb.org/3/tv/popular?api_key=333c507e13a6708b1caa02ed821254c7");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var tvData = JsonSerializer.Deserialize<MovieApiResponse>(content);
+
+                if (tvData?.Results != null)
+                {
+                    return tvData.Results.Select(tv => new Movie
+                    {
+                        Id = tv.Id,
+                        Title = tv.Title ?? "Unknown Title",
+                        Description = tv.Description ?? "No description available",
+                        PosterUrl = !string.IsNullOrEmpty(tv.PosterUrl) ? "https://image.tmdb.org/t/p/w500" + tv.PosterUrl : string.Empty,
+                        ReleaseDate = tv.ReleaseDate ?? DateTime.Now
+                    }).ToList();
+                }
+            }
+
+            return new List<Movie>();
+        }
 
         public async Task FetchAndAddMoviesAsync()
         {

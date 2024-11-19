@@ -43,6 +43,7 @@ public class ProfileController : Controller
         {
             HttpContext.Session.SetInt32("SelectedProfileId", profile.Id);
             HttpContext.Session.SetString("SelectedProfileName", profile.Name);
+            HttpContext.Session.SetString("SelectedProfileIcon", profile.IconUrl);
             return Json(new { success = true });
         }
 

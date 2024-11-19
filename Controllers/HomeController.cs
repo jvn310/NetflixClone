@@ -7,6 +7,7 @@ using NetflixClone.Services;
 using Microsoft.AspNetCore.Antiforgery;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Identity;
 
 namespace NetflixClone.Controllers
 {
@@ -308,6 +309,18 @@ namespace NetflixClone.Controllers
             var searchResults = await _movieService.SearchMoviesAsync(query);
             return Json(searchResults); 
         }
+
+            public IActionResult Logout()
+            {
+                HttpContext.Session.Clear();
+
+                if (Request.Cookies["UserAuth"] != null)
+                {
+                    Response.Cookies.Delete("UserAuth");
+                }
+
+                return RedirectToAction("Login", "Home");
+            }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

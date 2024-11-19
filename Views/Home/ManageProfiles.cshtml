@@ -7,11 +7,7 @@
 
 @model List<NetflixClone.Models.Profile>
 
-@{
-    ViewData["Title"] = "Manage Profiles";
-}
-
-<h1>Manage Profiles</h1>
+<h1 class="profile-heading">Manage Profiles</h1>
 <div class="profiles-container">
     @if (Model != null && Model.Any())
     {
